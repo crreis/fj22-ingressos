@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Sessao {
@@ -25,6 +26,9 @@ public class Sessao {
 	
 	@ManyToOne
 	private Filme filme;
+	
+	@OneToMany
+	private List<Ingresso> ingressos;
 	
 	/**
 	 * @deprecated hibernate only
@@ -86,9 +90,22 @@ public class Sessao {
 		this.preco = preco;
 	}
 	
+	
+	
+	public List<Ingresso> getIngressos() {
+		return ingressos;
+	}
+
+	public void setIngressos(List<Ingresso> ingressos) {
+		this.ingressos = ingressos;
+	}
+
 	public Map<String , List<Lugar>> getMapaDeLugares(){
 		return sala.getMapaDeLugares();
 	}
 	
 
+	public boolean isDisponivel(Lugar lugar){
+		return ingressos.stream().map(Ingresso::getLugar).noneMatch(l -> l.equals(lugar));
+	}
 }

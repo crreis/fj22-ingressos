@@ -10,5 +10,11 @@ public class DescontoEstudante implements Descontos {
 	public BigDecimal aplicarDescontoSobre(BigDecimal precoOriginal){
 		return precoOriginal.divide(metade);
 	}
+	
+	@Override
+	public String getDescricao() {
+		// TODO Auto-generated method stub
+		return "Estudante";
+	}
 
 }
